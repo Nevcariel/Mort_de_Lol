@@ -87,7 +87,9 @@ DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/mort_de_lol
 
 ## Instalation
 
-- Télécharger le repo
+- Télécharger le repo et extraire l'archive ou cloner le repo
+
+- Ouvrir un terminal
 
 - Se positionner dans le dossier
 
