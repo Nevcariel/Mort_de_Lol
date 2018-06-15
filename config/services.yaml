@@ -34,25 +34,11 @@ services:
             - { name: sonata.admin, manager_type: orm, label: Categorie }
         public: true
 
-    admin.fonction:
-        class: App\Admin\FonctionAdmin
-        arguments: [~, App\Entity\Fonction, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Fonction }
-        public: true
-
     admin.blague:
         class: App\Admin\BlagueAdmin
         arguments: [~, App\Entity\Blague, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Blague }
-        public: true
-
-    admin.etat:
-        class: App\Admin\EtatAdmin
-        arguments: [~, App\Entity\Etat, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Etat }
         public: true
 
     admin.commentaire:
