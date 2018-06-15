@@ -1,4 +1,4 @@
-# MortDeLol
+# Mort de Lol
 ## Résumé
 
 Ce site en un site de référencement de blagues.
@@ -12,7 +12,7 @@ Ce site en un site de référencement de blagues.
 - Le compte admin est : 
 ```
 id : admin
-mdp : adminpass
+mdp : admin
 ```
 
 ## Prérequis
@@ -21,9 +21,9 @@ mdp : adminpass
 
 - Requiert php 7.2 http://php.net/downloads.php
 
-- Requiert SQLite ou MySQL
+- Requiert SQLite 2.8 ou MySQL 5.7
 
-- Dans le cas ou MySQL est utilisé :
+- Si vous utilisez MySQL :
 
 remplacer le contenu du fichier site/config/package/doctrine.yaml par :
 
