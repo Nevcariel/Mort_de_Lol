@@ -15,13 +15,83 @@ id : admin
 mdp : adminpass
 ```
 
+## Prérequis
+
+- Requiert composer https://getcomposer.org/download/
+
+- Requiert php 7.2 http://php.net/downloads.php
+
+- Requiert SQLite ou MySQL
+
+- Dans le cas ou MySQL est utilisé :
+
+remplacer le contenu du fichier site/config/package/doctrine.yaml par :
+
+```
+parameters:
+    # Adds a fallback DATABASE_URL if the env var is not set.
+    # This allows you to run cache:warmup even if your
+    # environment variables are not available yet.
+    # You should not need to change this value.
+    env(DATABASE_URL): ''
+
+doctrine:
+    dbal:
+        # configure these for your database server
+        driver: 'pdo_mysql'
+        server_version: '5.7'
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+
+        url: '%env(resolve:DATABASE_URL)%'
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App
+
+
+```
+
+remplacer le contenu du fichier site/.env par :
+```
+# This file is a "template" of which env vars need to be defined for your application
+# Copy this file to .env file for development, create environment variables when deploying to production
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+
+###> symfony/framework-bundle ###
+APP_ENV=dev
+APP_SECRET=0c94212559cd3d8678c06b4b876a12f4
+#TRUSTED_PROXIES=127.0.0.1,127.0.0.2
+#TRUSTED_HOSTS=localhost,example.com
+###< symfony/framework-bundle ###
+
+###> doctrine/doctrine-bundle ###
+# Format described at http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url
+# For an SQLite database, use: "sqlite:///%kernel.project_dir%/var/data.db"
+# Configure your db driver and server_version in config/packages/doctrine.yaml
+DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/mort_de_lol
+###< doctrine/doctrine-bundle ###
+
+```
+
+
+
 ## Instalation
 
 - Télécharger le repo
 
 - Se positionner dans le dossier
 
-- Lancer les commandes suivantes :
+- Entrer les commandes suivantes :
 
 ```
 composer install
@@ -34,7 +104,7 @@ composer install
 
 ```
 
-Lancer le navigateur et aller sur http://localhost:8000.
+- Lancer le navigateur et aller sur http://localhost:8000.
 
 
 ## Auteurs
