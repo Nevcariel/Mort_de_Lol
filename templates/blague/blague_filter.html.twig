@@ -1,0 +1,112 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultat de la recherche{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="show-article-container p-3 mt-4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        
+                        <div class="show-article-title-container d-inline-block pl-3 align-middle">
+
+                            <br>
+                            <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('images/monkey_profile.png') }}"> {{ blague.user.username }} </span>
+                            <span class="pl-2 article-details"><i class="fa fa-calendar"></i> <date>{{ blague.date | date("d/m/Y") }}</date></span>
+                            <span class="pl-2 article-details">
+                                <span class="js-like-article-count">
+                                    <i class="fa fa-star"></i> {{ moy | number_format(1) }}/5<br />
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') and usernote == null %}
+                                            {{form_start(noteform)}}
+                                                {{form_widget(noteform.note)}}
+                                                <button type="submit">Noter</button>
+                                            {{form_end(noteform)}}
+                                        
+                                    {% endif %}
+                                </span>
+                                
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <article class="article-text">
+                            <header>
+                                <h3>{{ blague.titre }}</h3>
+                            </header>
+                            <hr/>
+                            <section>
+                                <p>{{ blague.contenu }}</p>
+                            </section>
+                            <footer>
+                                {% for categorie in blague.getCategories() %}
+                                    <p class="cat-list">{{ categorie.libelle }} | </p>
+                                {% endfor %}
+                            </footer>
+                        </article>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3><i class="pr-3 fa fa-comment"></i>{{ comments|length }} Comments</h3>
+                        <hr>
+
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <div class="row mb-5">
+                                <div class="col-sm-12">
+                                    <img class="comment-img rounded-circle" src="{{ asset('images/monkey_profile.png') }}">
+                                    <div class="comment-container d-inline-block pl-3 align-top">
+                                        <span class="commenter-name">{{ user.username }}</span>
+                                        <div class="form-group">
+                                            <div class="form-control comment-form">
+                                                {{ form_start(commentform) }}
+                                                    {{ form_widget(commentform.contenu) }}
+                                                    <button type="submit" class="btn btn-info">Ajouter</button>
+                                                {{ form_end(commentform) }}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="{{ asset('/login') }}">Connectez vous pour laisser un commentaire</a>
+                        {% endif %}
+
+                        <hr/>
+
+                        {% for comment in comments %}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img class="comment-img rounded-circle" src="{{ asset('images/monkey_profile.png') }}">
+                                    <div class="comment-container d-inline-block pl-3 align-top">
+                                        <span class="commenter-name">{{ comment.user.username }}</span>
+                                        <br>
+                                        <span class="comment"> {{ comment.contenu }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/article_show.js') }}"></script>
+{% endblock %}

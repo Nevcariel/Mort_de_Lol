@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ user.username }}!{% endblock %}
+
+{% block main %}
+    <h2 style="margin-left:10%">Liste des blagues postées par {{ user.getUsername() }}</h2>
+    <table>
+        <tr>
+            <th>Blague</th>
+            <th>Date</th>
+        </tr>
+        {% for blague in blagues %}
+            <tr>
+                
+                    <td><a href="{{ path('blague_show', {'id' : blague.id}) }}">{{ blague.getTitre() }}</a></td>
+                    <td>{{ blague.getDate() | date("d/m/Y")}}</td>
+                
+            </tr>
+        {% endfor %}
+    </table>
+    <br/>
+    <h2 style="margin-left:10%">Liste des commentaires postés par {{ user.getUsername() }}</h2>
+    <table>
+        <tr>
+            <th>Commentaire</th>
+            <th>Blague</th>
+            <th>Date</th>
+        </tr>
+        {% for commentaire in commentaires %}
+            <tr>
+                <td>{{ commentaire.getContenu() }}</td>
+                <td><a href="{{ path('blague_show', {'id' : commentaire.blague.getId()}) }}">{{ commentaire.blague.getTitre() }}</a></td>
+                <td>{{ commentaire.getDate() | date("d/m/Y")}}</td>
+            </tr>
+        {% endfor %}
+    </table> 
+{% endblock %}

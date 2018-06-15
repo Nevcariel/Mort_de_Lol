@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Repository;
+
+use App\Entity\Blague;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\ORM\Query;
+
+/**
+ * @method Blague|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Blague|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Blague[]    findAll()
+ * @method Blague[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class BlagueRepository extends ServiceEntityRepository
+{
+    public function __construct(RegistryInterface $registry)
+    {
+        parent::__construct($registry, Blague::class);
+    }
+
+//    /**
+//     * @return Blague[] Returns an array of Blague objects
+//     */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    */
+
+    /*
+    public function findOneBySomeField($value): ?Blague
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    */
+
+    /**
+     * @return Blague[] 
+     */
+    public function findByText($text)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                "SELECT b FROM App\Entity\Blague b 
+                WHERE b.titre LIKE :text 
+                OR b.contenu LIKE :text");
+        $query->setParameter('text', '%'.$text.'%');
+        return $query->getResult();
+    }
+}

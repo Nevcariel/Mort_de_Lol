@@ -1,0 +1,54 @@
+
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+
+            <!-- Article List -->
+
+            <div class="col-sm-12 col-md-8">
+
+                <!-- Supporting Articles -->
+                {% for blague in blagues %}
+                    <article class="article-container my-1">
+                        <a href="{{ path('blague_show', {'id' : blague.id}) }}">
+                            <div class="article-title d-inline-block pl-3 align-middle">
+                                <header>
+                                    <h3>{{ blague.titre }}</h3>
+                                    <hr />
+                                <header>
+                                <section>{{ blague.contenu }}</section>
+                                <hr/>
+                                <footer>
+                                    <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('images/monkey_profile.png') }}"> {{ blague.user.username }} </span>
+                                    <date class="pl-5 article-details float-right">{{ blague.date | date("d/m/Y") }}</date>
+                                </footer>
+                            </div>
+                        </a>
+                    </article>
+                {% endfor %}
+            </div>
+
+            <!-- Right bar ad space -->
+
+
+            <div class="col-sm-12 col-md-4 text-center">
+                <div class="quote-space pb-2 pt-2 px-5">
+                    <h3 class="text-center pb-3">Derniers Commentaires</h3>
+                    <hr/>
+                    {% for comment in comments %}
+                        <p>
+                            <i class="fa fa-comment"></i> 
+                            "{{ comment.getContenu() }}" 
+                            <br>— 
+                            <a href="{{ path('blague_show', {'id': comment.blague.getId()}) }}">
+                                {{ comment.user.username }}
+                            </a>
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

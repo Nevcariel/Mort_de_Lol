@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos blagues{% endblock %}
+
+{% block main %}
+<div class="col-sm-8 offset-md-2">
+    {% for blague in blagues %}
+         <article class="article-container my-1">
+            <a href="{{ path('blague_show', {'id' : blague.id}) }}">
+                <div class="article-title d-inline-block pl-3 align-middle">
+                    <header>
+                        <h3>{{ blague.titre }}</h3>
+                        <hr />
+                    <header>
+                    <section>{{ blague.contenu }}</section>
+                    <hr/>
+                    <footer>
+                        <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('images/monkey_profile.png') }}">  {{ blague.user.username }} </span>
+                        <date class="pl-5 article-details float-right">{{ blague.date | date("d/m/Y") }}</date>
+                    </footer>
+                </div>
+            </a>
+        </article>
+    {% endfor %}
+</div>
+
+{% endblock %}

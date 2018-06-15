@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
+{% endblock %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block main %}
+
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form class="form-container" "action="{{ path('login') }}" method="post">
+        <div class="form-title"><h2>Connexion</h2></div>
+        <label class="form-title" for="username">Nom d'utilisateur</label>
+        <input class="form-field" type="text" id="username" name="_username" value="{{ last_username }}" /><br />
+
+        <label class="form-title" for="password">Mot de passe</label>
+        <input class="form-field" type="password" id="password" name="_password" /><br />
+        <a href="{{ asset('/register') }}">Inscription</a>
+        <div class="submit-container">
+            <button class="submit-button" type="submit">Continuer</button>
+        </div>
+    </form>
+{% endblock %}
