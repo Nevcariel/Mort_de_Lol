@@ -14,7 +14,29 @@ Ce site en un site de référencement de blagues.
 id : admin
 mdp : adminpass
 ```
-    
+
+## Instalation
+
+- Télécharger le repo
+
+- Se positionner dans le dossier
+
+- Lancer les commandes suivantes :
+
+```
+composer install
+./bin/console cache:clear
+./bin/console doctrine:database:create
+./bin/console make:migration
+./bin/console doctrine:migrations:migrate
+./bin/console doctrine:fixtures:load
+./bin/console server:run
+
+```
+
+Lancer le navigateur et aller sur http://localhost:8000.
+
+
 ## Auteurs
 
 Romain Guilcher, Alexandre Doré, Léo Guerin, Thomas Bihorel, Corentin Poncet.
